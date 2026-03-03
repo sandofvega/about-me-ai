@@ -1,0 +1,35 @@
+name: Deploy Only Pipeline
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKERHUB_REPOSITORY: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.IMAGE_NAME }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Deploy on EC2 via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            docker pull ${{ env.DOCKERHUB_REPOSITORY }}:latest
+
+            docker stop about-me-ai || true
+            docker rm about-me-ai || true
+
+            docker run -d \
+              --name about-me-ai \
+              -p ${{ vars.APP_PORT }}:8000 \
+              -e CHAT_MODEL=${{ vars.CHAT_MODEL }} \
+              -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} \
+              --restart unless-stopped \
+              ${{ env.DOCKERHUB_REPOSITORY }}:latest
