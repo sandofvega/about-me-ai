@@ -56,7 +56,7 @@ jobs:
 
             docker run -d \
               --name about-me-ai \
-              -p 8001:8000 \
+              -p ${{ vars.APP_PORT }}:8000 \
               -e CHAT_MODEL=${{ vars.CHAT_MODEL }} \
               -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} \
               --restart unless-stopped \
