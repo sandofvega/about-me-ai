@@ -57,5 +57,7 @@ jobs:
             docker run -d \
               --name about-me-ai \
               -p 8001:8000 \
+              -e CHAT_MODEL=${{ vars.CHAT_MODEL }} \
+              -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} \
               --restart unless-stopped \
               ${{ env.DOCKERHUB_REPOSITORY }}:latest
