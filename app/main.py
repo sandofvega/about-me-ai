@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from ai import ask
+from lib.ai import ask
 
 app = FastAPI()
 
@@ -30,6 +30,7 @@ async def chat(request: ChatRequest):
 
     except Exception:
         raise HTTPException(status_code=500, detail="Something went wrong.")
+
 
 @app.get("/health")
 def health_check():

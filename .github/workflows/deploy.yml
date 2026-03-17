@@ -1,6 +1,10 @@
-name: Deploy Only Pipeline
+name: Deploy Pipeline
 
 on:
+  workflow_run:
+    workflows: ["Build Pipeline"]
+    types:
+      - completed
   workflow_dispatch:
 
 env:
@@ -31,5 +35,8 @@ jobs:
               -p ${{ vars.APP_PORT }}:8000 \
               -e CHAT_MODEL=${{ vars.CHAT_MODEL }} \
               -e GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }} \
+              -e QDRANT_URL=${{ secrets.QDRANT_URL }} \
+              -e QDRANT_API_KEY=${{ secrets.QDRANT_API_KEY }} \
+              -e QDRANT_COLLECTION=${{ vars.QDRANT_COLLECTION }} \
               --restart unless-stopped \
               ${{ env.DOCKERHUB_REPOSITORY }}:latest
