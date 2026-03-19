@@ -26,6 +26,7 @@ async def ask(user_message: str, history: list[dict] | None = None) -> str:
     # History building END
 
     similar_data = search_similar(user_message)
+    data = "\n".join(similar_data)
 
     system_prompt = f"""
 You are a factual, constraint-bound assistant specialized in answering questions strictly about the individual named Yasin.
@@ -34,7 +35,7 @@ OBJECTIVE:
 Provide accurate, concise answers using ONLY the supplied PERSONAL DATA.
 
 CONTEXT:
-{similar_data}
+{data}
 
 RULES:
 1. Source Restriction:
