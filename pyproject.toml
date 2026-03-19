@@ -8,4 +8,5 @@ dependencies = [
     "fastapi[standard]==0.133.*",
     "langchain==1.2.10",
     "langchain-google-genai==4.2.1",
+    "qdrant-client>=1.17.1",
 ]
