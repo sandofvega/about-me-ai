@@ -1,6 +1,9 @@
+import logging
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from lib.ai import ask
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -28,7 +31,8 @@ async def chat(request: ChatRequest):
         )
         return ChatResponse(reply=reply)
 
-    except Exception:
+    except Exception as e:
+        logger.exception(f"Error processing chat request: {str(e)}")
         raise HTTPException(status_code=500, detail="Something went wrong.")
 
 
