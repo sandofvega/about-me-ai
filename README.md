@@ -6,10 +6,14 @@
 
 #### Run in development
 ```
-uv run fastapi dev app/main.py
+uv run fastapi dev main.py
 ```
 
 #### Run in production
 ```
-uv run fastapi run app/main.py
+uv run fastapi run main.py
+```
+or
+```
+uv run uvicorn main:app
 ```

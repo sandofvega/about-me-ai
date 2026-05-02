@@ -11,6 +11,7 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-google-genai" },
     { name = "qdrant-client" },
+    { name = "uvicorn", extra = ["standard"] },
 ]
 
 [package.metadata]
@@ -19,6 +20,7 @@ requires-dist = [
     { name = "langchain", specifier = "==1.2.10" },
     { name = "langchain-google-genai", specifier = "==4.2.1" },
     { name = "qdrant-client", specifier = ">=1.17.1" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.41.0" },
 ]
 
 [[package]]
