@@ -1,10 +1,10 @@
 name: Deploy Pipeline
 
 on:
-  workflow_run:
-    workflows: ["Build Pipeline"]
-    types:
-      - completed
+#   workflow_run:
+#     workflows: ["Build Pipeline"]
+#     types:
+#       - completed
   workflow_dispatch:
 
 env:
