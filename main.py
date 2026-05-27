@@ -1,11 +1,22 @@
 import logging
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from core.config import settings
 from lib.ai import ask
 
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
+
+if settings.cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 
 class ChatMessageModel(BaseModel):
@@ -39,5 +50,5 @@ async def chat(request: ChatRequest):
 @app.get("/health")
 def health_check():
     return {
-        "status": "ok"
+        "status": "healthy"
     }
